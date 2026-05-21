@@ -24,10 +24,11 @@ type IntegrationHandler interface {
 	RemoveTip(ctx context.Context, branch string) error
 	Show(ctx context.Context) (*integration.Status, error)
 	Checkout(ctx context.Context) error
-	Rebuild(ctx context.Context) (*integration.RebuildResult, error)
+	Rebuild(ctx context.Context, opts *integration.RebuildOptions) (*integration.RebuildResult, error)
 	Submit(ctx context.Context) error
 	MaybeRebuild(ctx context.Context) error
 	MaybeRebuildAndSubmit(ctx context.Context) error
+	OnBranchRemoved(ctx context.Context, branch string) error
 }
 
 var _ IntegrationHandler = (*integration.Handler)(nil)
