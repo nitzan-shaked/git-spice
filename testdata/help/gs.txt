@@ -58,6 +58,7 @@ Branch
   branch (b) onto (on)         Move a branch onto another branch
   branch (b) diff (di)         Show diff between a branch and its base
   branch (b) submit (s)        Submit a branch
+  branch (b) merge (m)         Merge a branch and its downstack
 
 Commit
   commit (c) create (c)    Create a new commit
@@ -69,9 +70,6 @@ Commit
 Rebase
   rebase (rb) continue (c)    Continue an interrupted operation
   rebase (rb) abort (a)       Abort an operation
-
-CI
-  ci merge-guard    Block merging a PR whose base is not trunk
 
 Navigation
   up (u)        Move up one branch

@@ -1057,6 +1057,43 @@ only if there are multiple CRs in the stack.
 
 **Configuration**: [spice.submit.assignees](/cli/config.md#spicesubmitassignees), [spice.submit.draft](/cli/config.md#spicesubmitdraft), [spice.submit.label](/cli/config.md#spicesubmitlabel), [spice.submit.label.addWhen](/cli/config.md#spicesubmitlabeladdwhen), [spice.submit.listTemplatesTimeout](/cli/config.md#spicesubmitlisttemplatestimeout), [spice.submit.navigationComment](/cli/config.md#spicesubmitnavigationcomment), [spice.submit.navigationComment.downstack](/cli/config.md#spicesubmitnavigationcommentdownstack), [spice.submit.navigationCommentStyle.marker](/cli/config.md#spicesubmitnavigationcommentstylemarker), [spice.submit.navigationCommentSync](/cli/config.md#spicesubmitnavigationcommentsync), [spice.submit.publish](/cli/config.md#spicesubmitpublish), [spice.submit.reviewers](/cli/config.md#spicesubmitreviewers), [spice.submit.reviewers.addWhen](/cli/config.md#spicesubmitreviewersaddwhen), [spice.submit.skipRestackCheck](/cli/config.md#spicesubmitskiprestackcheck), [spice.submit.template](/cli/config.md#spicesubmittemplate), [spice.submit.web](/cli/config.md#spicesubmitweb)
 
+### git-spice branch merge {#gs-branch-merge}
+
+```
+gs branch (b) merge (m) [flags]
+```
+
+Merge a branch and its downstack
+
+Merges the current branch and all branches below it
+into trunk via the forge API, bottom-up.
+Use --branch to start at a different branch.
+
+Already-merged branches are skipped automatically.
+Branches must have an open Change Request to be merged.
+
+Before merging, the downstack is checked for branches
+whose base PR was already merged on the forge.
+Use --no-branch-check to skip this validation.
+
+Before each merge, waits for CI checks to pass.
+Use --build-timeout to configure the maximum wait
+(default: 30m, 0 means fail immediately if not ready).
+
+Between merges, the command waits for each merge
+to complete, retargets the next PR to trunk,
+and cleans up the merged local branch.
+Use --no-wait to skip the propagation polling.
+
+**Flags**
+
+* `--branch=NAME`: Branch to merge
+* `--no-wait`: Skip polling for each merge to propagate (still retargets and cleans up).
+* `--no-branch-check`: Skip stale base validation before merging.
+* `--build-timeout=30m` ([:material-wrench:{ .middle title="spice.merge.buildTimeout" }](/cli/config.md#spicemergebuildtimeout)): Max time to wait for CI checks before each merge. 0 means check once.
+
+**Configuration**: [spice.merge.buildTimeout](/cli/config.md#spicemergebuildtimeout)
+
 ## Commit
 
 ### git-spice commit create {#gs-commit-create}
@@ -1266,43 +1303,6 @@ going back to the state before the rebase.
 
 The command can be used in place of 'git rebase --abort'
 even if a git-spice operation is not currently in progress.
-
-## CI
-
-### git-spice ci merge-guard {#gs-ci-merge-guard}
-
-```
-gs ci merge-guard <number> [flags]
-```
-
-Block merging a PR whose base is not trunk
-
-Checks whether a change request is safe to merge
-by verifying its base branch is trunk.
-
-Use this in forge CI/CD pipelines to prevent
-out-of-order merges in a stacked PR workflow.
-
-By default, only git-spice managed PRs are checked.
-Unmanaged PRs are allowed through.
-Use --all to block any PR whose base is not trunk.
-
-The trunk branch is detected from the git-spice
-navigation comment on the PR.
-Use --trunk to override this detection.
-
-Exit codes:
-  0  PR is safe to merge (base is trunk, or unmanaged)
-  1  PR should not be merged yet
-
-**Arguments**
-
-* `number`: Change request number to check
-
-**Flags**
-
-* `--trunk=STRING`: Override trunk branch name
-* `--all`: Block all non-trunk-based PRs, not just git-spice managed ones
 
 ## Navigation
 

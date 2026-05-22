@@ -1,13 +1,12 @@
 | **Shorthand** | **Long form** |
 |  --- | --- |
 | gs bc | [gs branch create](/cli/reference.md#gs-branch-create) |
-| gs bcmtls | [gs branch comment list](/cli/reference.md#gs-branch-comment-list) |
-| gs bcmtss | [gs branch comment submit-staged](/cli/reference.md#gs-branch-comment-submit-staged) |
 | gs bco | [gs branch checkout](/cli/reference.md#gs-branch-checkout) |
 | gs bd | [gs branch delete](/cli/reference.md#gs-branch-delete) |
 | gs bdi | [gs branch diff](/cli/reference.md#gs-branch-diff) |
 | gs be | [gs branch edit](/cli/reference.md#gs-branch-edit) |
 | gs bfo | [gs branch fold](/cli/reference.md#gs-branch-fold) |
+| gs bm | [gs branch merge](/cli/reference.md#gs-branch-merge) |
 | gs bon | [gs branch onto](/cli/reference.md#gs-branch-onto) |
 | gs br | [gs branch restack](/cli/reference.md#gs-branch-restack) |
 | gs brn | [gs branch rename](/cli/reference.md#gs-branch-rename) |
